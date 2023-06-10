@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: musicas-mysql
+    image: inf21dw2g003/musicas-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+    networks:
+      - musicas-network
+    ports:
+      - 3306:3306
+  app:
+    depends_on:
+      - mysql
+    container_name: musicas-app
+    image: inf21dw2g003/musicas-app
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+    networks:
+      - musicas-network
+
+networks:
+  musicas-network:
